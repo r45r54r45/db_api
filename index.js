@@ -16,3 +16,5 @@ app.use('/assess_100', require('./assess_100'));
 app.use('/super',require('./super'));
 
 app.listen(3001);
+console.log("listening on 3001");
+
