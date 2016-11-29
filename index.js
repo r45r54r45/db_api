@@ -15,6 +15,9 @@ app.use('/assess_5', require('./assess_5'));
 app.use('/assess_100', require('./assess_100'));
 app.use('/super',require('./super'));
 
+app.get('/', function(req, res){
+    res.send("wtf?");
+})
 app.listen(3001);
 console.log("listening on 3001");
 
