@@ -20,10 +20,11 @@ app.get('/super/:gid', function (req, res) {
             console.log(err);
         })
 })
-app.post('/super', function (req, res) {
+app.post('/super/:uid/:cid', function (req, res) {
     db(lib.db.insert("Belong_to", req.body))
         .then(function (data) {
             var id=data.insertId;
+            db("insert into Works_as (User_id, Category_id) values (?,?)",[req.params.uid, req.params.cid])
             res.json({uid: id});
         })
         .catch(function(err){
