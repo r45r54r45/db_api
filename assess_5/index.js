@@ -41,6 +41,24 @@ app.get('/statistic/response', function (req, res) {
             res.json({err:err});
         })
 })
+app.get('/statistic/question/:cid', function (req, res) {
+    db("select q.title, q.id, avg(score) as avg, std(score) as std from Question q join Assess_5 a5 on q.id=a5.Question_id where q.Category_id=? group by q.id",[req.params.cid])
+        .then(function (data) {
+            res.json(data)
+        })
+        .catch(function(err){
+            res.json({err:err});
+        })
+})
+app.get('/statistic/response/:cid', function (req, res) {
+    db("select q.content, q.id, avg(score) as avg, std(score) as std from Response q join Question qq on qq.id=q.Question_id join Assess_5 a5 on q.id=a5.Response_id where qq.Category_id=? group by q.id",[req.params.cid])
+        .then(function (data) {
+            res.json(data)
+        })
+        .catch(function(err){
+            res.json({err:err});
+        })
+})
 app.all('*', function (req, res) {
     res.send("fuck you");
 })

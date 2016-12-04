@@ -49,7 +49,9 @@ app.get('/category', function(req, res){
 })
 app.post('/:uid-:categoryid',upload.single('image'), function(req, res){
     //질문 올리기
-    req.body.image=req.file.filename;
+    if(req.file){
+        req.body.image=req.file.filename;
+    }
     req.body.User_id=parseInt(req.params.uid);
     req.body.Category_id=parseInt(req.params.categoryid);
     req.body.assess_end=new Date().toMysqlFormat(); //질문의 생명은 하루
