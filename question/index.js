@@ -40,7 +40,6 @@ app.get('/category/:cid', function(req, res){
 app.get('/category', function(req, res){
     db("select * from Category")
         .then(function(data){
-            console.log(data);
             res.json(data);
         })
         .catch(function(err){
@@ -151,9 +150,10 @@ app.get('/type/:typeid-:uid', function(req, res){
 })
 
 app.delete('/:qid', function(req, res){
+    console.log("Delete");
     db("delete from Question where id=?",[req.params.qid])
         .then(function(data){
-            res.json(data[0]);
+            res.json(data);
         })
         .catch(function(err){
             res.json({err: err});

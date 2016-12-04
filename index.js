@@ -17,6 +17,7 @@ app.use('/super',require('./super'));
 app.use('/category',require('./category'));
 app.use('/group',require('./group'));
 app.use('/assign',require('./assign'));
+app.use('/notice',require('./notice'));
 app.get('/', function(req, res){
     res.send("wtf?");
 })

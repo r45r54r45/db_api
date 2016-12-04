@@ -50,6 +50,18 @@ app.get('/', function (req, res) {
 
         })
 })
+app.get('/belong/:uid', function (req, res) {
+    console.log("belong to");
+    db("select m.name, content from Belong_to b join Mentor_group m on m.id=b.Mentor_group_id left outer join Notice n on n.Mentor_group_id=m.id where b.isSuper=0 and b.User_id=?",[req.params.uid])
+        .then(function (data) {
+            console.log(data);
+
+            res.json(data);
+        })
+        .catch(function(err){
+
+        })
+})
 app.get('/all/:gid', function (req, res) {
     db("select * from Belong_to b join User u on b.User_id=u.id where b.Mentor_group_id=? and isSuper=0",[req.params.gid])
         .then(function (data) {

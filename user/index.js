@@ -46,13 +46,13 @@ app.get('/category/:type', function(req, res){
                })
            break;
        case "2":
-           db('select * from User u join Works_as w on u.id=w.User_id')
+           db('select distinct u.id, u.name from User u join Works_as w on u.id=w.User_id')
                .then(function (data) {
                    res.json(data);
                })
            break;
        case "1":
-           db('select * from User u left outer join Works_as w on u.id=w.User_id where User_id is NULL')
+           db('select distinct u.id, u.name from User u left outer join Works_as w on u.id=w.User_id where User_id is NULL')
                .then(function (data) {
                    res.json(data);
                })
