@@ -17,7 +17,19 @@ app.post('/question/:uid-:qid', function (req, res) {
             res.json({err:err});
         })
 })
-
+app.get('/statistic', function (req, res) {
+    db("select avg(q1) as aq1, avg(q2) as aq2, avg(q3) as aq3, kk.title  from (select q.id as id, q.title as title,  " +
+        "(select avg(score) from Assess_100_score where Assess_100_id=a100.id and question_num=1) as q1, " +
+        "(select avg(score) from Assess_100_score where Assess_100_id=a100.id and question_num=2) as q2, " +
+        "(select avg(score) from Assess_100_score where Assess_100_id=a100.id and question_num=3) as q3 " +
+        "from Question q join Assess_100 a100 on q.id=a100.Question_id) as kk group by id ")
+        .then(function (data) {
+            res.json(data)
+        })
+        .catch(function(err){
+            res.json({err:err});
+        })
+})
 app.all('*', function (req, res) {
     res.send("fuck you");
 })
